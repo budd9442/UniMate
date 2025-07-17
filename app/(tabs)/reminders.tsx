@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Alert } from 'react-native';
-import { Card, Title, Paragraph, Button, FAB, Portal, Modal, TextInput, Menu, Chip } from 'react-native-paper';
+import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
 import { useAppContext } from '@/context/AppContext';
 import { mockReminders } from '@/services/mockData';
-import { theme } from '@/theme/theme';
+import { 
+  Bell, 
+  Plus, 
+  Calendar, 
+  Clock, 
+  AlertCircle, 
+  CheckCircle2, 
+  Edit3,
+  X,
+  ChevronDown
+} from 'lucide-react-native';
 
 export default function RemindersScreen() {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -12,20 +21,31 @@ export default function RemindersScreen() {
   const [newDueDate, setNewDueDate] = useState('');
   const [newPriority, setNewPriority] = useState('medium');
   const [newCategory, setNewCategory] = useState('assignment');
-  const [priorityMenuVisible, setPriorityMenuVisible] = useState(false);
-  const [categoryMenuVisible, setCategoryMenuVisible] = useState(false);
+  const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const { translations, isOffline } = useAppContext();
 
-  const priorities = ['high', 'medium', 'low'];
-  const categories = ['assignment', 'event', 'exam', 'meeting'];
+  const priorities = [
+    { value: 'high', label: 'High Priority', color: 'bg-error-500', textColor: 'text-error-600' },
+    { value: 'medium', label: 'Medium Priority', color: 'bg-warning-500', textColor: 'text-warning-600' },
+    { value: 'low', label: 'Low Priority', color: 'bg-success-500', textColor: 'text-success-600' },
+  ];
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return theme.colors.error;
-      case 'medium': return theme.colors.warning;
-      case 'low': return theme.colors.success;
-      default: return theme.colors.onSurfaceVariant;
-    }
+  const categories = [
+    { value: 'assignment', label: 'Assignment', icon: Edit3 },
+    { value: 'event', label: 'Event', icon: Calendar },
+    { value: 'exam', label: 'Exam', icon: AlertCircle },
+    { value: 'meeting', label: 'Meeting', icon: Clock },
+  ];
+
+  const getPriorityStyle = (priority: string) => {
+    const priorityConfig = priorities.find(p => p.value === priority);
+    return priorityConfig || priorities[1];
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const categoryConfig = categories.find(c => c.value === category);
+    return categoryConfig?.icon || Edit3;
   };
 
   const handleAddReminder = () => {
@@ -54,274 +74,213 @@ export default function RemindersScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Title style={styles.title}>{translations.reminders}</Title>
+    <View className="flex-1 bg-neutral-50">
+      {/* Header */}
+      <View className="bg-gradient-to-br from-secondary-600 to-secondary-700 pt-16 pb-8 px-6 rounded-b-4xl">
+        <Text className="text-white text-3xl font-bold mb-2">{translations.reminders}</Text>
+        <Text className="text-secondary-100 text-lg opacity-90">
+          Stay on top of your deadlines
+        </Text>
         {isOffline && (
-          <Paragraph style={styles.offlineText}>{translations.offlineData}</Paragraph>
+          <Text className="text-warning-300 text-sm mt-2">{translations.offlineData}</Text>
         )}
       </View>
 
-      <ScrollView style={styles.remindersList} contentContainerStyle={{ paddingBottom: 120 }}>
-        {mockReminders.map((reminder) => (
-          <Card key={reminder.id} style={styles.reminderCard}>
-            <Card.Content>
-              <View style={styles.reminderHeader}>
-                <Title style={styles.reminderTitle}>{reminder.title}</Title>
-                <Chip
-                  style={[styles.priorityChip, { backgroundColor: getPriorityColor(reminder.priority) }]}
-                  textStyle={{ color: theme.colors.surface }}
-                >
-                  {reminder.priority.toUpperCase()}
-                </Chip>
+      <ScrollView className="flex-1 px-4 -mt-6" contentContainerStyle={{ paddingBottom: 120 }}>
+        {mockReminders.map((reminder) => {
+          const priorityStyle = getPriorityStyle(reminder.priority);
+          const CategoryIcon = getCategoryIcon(reminder.category);
+          
+          return (
+            <View key={reminder.id} className="bg-white rounded-2xl p-6 mb-4 shadow-soft">
+              <View className="flex-row items-start justify-between mb-3">
+                <View className="flex-1">
+                  <Text className="text-neutral-800 text-xl font-bold mb-2">{reminder.title}</Text>
+                  <View className={`${priorityStyle.color} self-start px-3 py-1 rounded-full`}>
+                    <Text className="text-white text-xs font-semibold uppercase">
+                      {reminder.priority}
+                    </Text>
+                  </View>
+                </View>
+                <View className="w-12 h-12 bg-secondary-50 rounded-xl items-center justify-center">
+                  <CategoryIcon size={20} color="#d946ef" strokeWidth={2} />
+                </View>
               </View>
-              <Paragraph style={styles.reminderDescription}>{reminder.description}</Paragraph>
-              <View style={styles.reminderMeta}>
-                <Paragraph style={styles.reminderDate}>Due: {reminder.dueDate}</Paragraph>
-                <Paragraph style={styles.reminderCategory}>{reminder.category}</Paragraph>
+              
+              <Text className="text-neutral-600 text-base mb-4 leading-6">
+                {reminder.description}
+              </Text>
+              
+              <View className="flex-row items-center justify-between mb-4">
+                <View className="flex-row items-center">
+                  <Calendar size={16} color="#737373" strokeWidth={2} />
+                  <Text className="text-neutral-500 text-sm ml-2">Due: {reminder.dueDate}</Text>
+                </View>
+                <View className="bg-secondary-50 px-3 py-1 rounded-full">
+                  <Text className="text-secondary-600 text-xs font-medium capitalize">
+                    {reminder.category}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.reminderActions}>
-                <Button
-                  mode="contained"
+              
+              <View className="flex-row space-x-3">
+                <TouchableOpacity 
+                  className="flex-1 bg-success-500 py-3 rounded-xl items-center"
                   onPress={() => Alert.alert('Mark Complete', `Marking ${reminder.title} as complete...`)}
-                  style={styles.actionButton}
                 >
-                  Mark Complete
-                </Button>
-                <Button
-                  mode="outlined"
+                  <View className="flex-row items-center">
+                    <CheckCircle2 size={16} color="white" strokeWidth={2} />
+                    <Text className="text-white font-semibold ml-2">Complete</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  className="flex-1 bg-neutral-100 py-3 rounded-xl items-center"
                   onPress={() => Alert.alert('Edit', `Editing ${reminder.title}...`)}
-                  style={styles.actionButton}
                 >
-                  {translations.edit}
-                </Button>
+                  <View className="flex-row items-center">
+                    <Edit3 size={16} color="#737373" strokeWidth={2} />
+                    <Text className="text-neutral-700 font-semibold ml-2">{translations.edit}</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </Card.Content>
-          </Card>
-        ))}
+            </View>
+          );
+        })}
       </ScrollView>
 
-      <FAB
-        icon="plus"
-        label={translations.addReminder}
-        style={styles.fab}
+      {/* Floating Action Button */}
+      <TouchableOpacity 
+        className="absolute bottom-6 right-6 bg-secondary-500 w-16 h-16 rounded-2xl items-center justify-center shadow-strong"
         onPress={() => setShowAddModal(true)}
-      />
+      >
+        <Plus size={24} color="white" strokeWidth={2} />
+      </TouchableOpacity>
 
-      <Portal>
-        <Modal
-          visible={showAddModal}
-          onDismiss={() => setShowAddModal(false)}
-          contentContainerStyle={styles.modalContainer}
-        >
-          <Card style={styles.modalCard}>
-            <Card.Content>
-              <Title style={styles.modalTitle}>Add Reminder</Title>
-              
-              <TextInput
-                label="Title *"
-                value={newTitle}
-                onChangeText={setNewTitle}
-                mode="outlined"
-                style={styles.input}
-              />
-
-              <TextInput
-                label="Description"
-                value={newDescription}
-                onChangeText={setNewDescription}
-                mode="outlined"
-                multiline
-                numberOfLines={3}
-                style={styles.input}
-              />
-
-              <TextInput
-                label="Due Date (YYYY-MM-DD) *"
-                value={newDueDate}
-                onChangeText={setNewDueDate}
-                mode="outlined"
-                style={styles.input}
-              />
-
-              <Menu
-                visible={priorityMenuVisible}
-                onDismiss={() => setPriorityMenuVisible(false)}
-                anchor={
-                  <Button
-                    mode="outlined"
-                    onPress={() => setPriorityMenuVisible(true)}
-                    style={styles.menuButton}
-                  >
-                    Priority: {newPriority}
-                  </Button>
-                }
+      {/* Add Reminder Modal */}
+      <Modal
+        visible={showAddModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowAddModal(false)}
+      >
+        <View className="flex-1 bg-black/50 justify-center px-6">
+          <View className="bg-white rounded-3xl p-6 shadow-strong max-h-[80%]">
+            <View className="flex-row items-center justify-between mb-6">
+              <Text className="text-neutral-800 text-2xl font-bold">Add Reminder</Text>
+              <TouchableOpacity
+                onPress={() => setShowAddModal(false)}
+                className="w-8 h-8 items-center justify-center"
               >
-                {priorities.map((priority) => (
-                  <Menu.Item
-                    key={priority}
-                    onPress={() => {
-                      setNewPriority(priority);
-                      setPriorityMenuVisible(false);
-                    }}
-                    title={priority}
-                  />
-                ))}
-              </Menu>
+                <X size={20} color="#737373" strokeWidth={2} />
+              </TouchableOpacity>
+            </View>
 
-              <Menu
-                visible={categoryMenuVisible}
-                onDismiss={() => setCategoryMenuVisible(false)}
-                anchor={
-                  <Button
-                    mode="outlined"
-                    onPress={() => setCategoryMenuVisible(true)}
-                    style={styles.menuButton}
-                  >
-                    Category: {newCategory}
-                  </Button>
-                }
-              >
-                {categories.map((category) => (
-                  <Menu.Item
-                    key={category}
-                    onPress={() => {
-                      setNewCategory(category);
-                      setCategoryMenuVisible(false);
-                    }}
-                    title={category}
-                  />
-                ))}
-              </Menu>
-
-              <View style={styles.modalActions}>
-                <Button
-                  mode="outlined"
-                  onPress={() => setShowAddModal(false)}
-                  style={styles.modalButton}
-                >
-                  {translations.cancel}
-                </Button>
-                <Button
-                  mode="contained"
-                  onPress={handleAddReminder}
-                  style={styles.modalButton}
-                >
-                  Add Reminder
-                </Button>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View className="mb-4">
+                <Text className="text-neutral-800 font-semibold mb-2">Title *</Text>
+                <TextInput
+                  value={newTitle}
+                  onChangeText={setNewTitle}
+                  className="border border-neutral-300 rounded-xl p-4 text-neutral-700 bg-neutral-50"
+                  placeholder="Enter reminder title"
+                />
               </View>
-            </Card.Content>
-          </Card>
-        </Modal>
-      </Portal>
+
+              <View className="mb-4">
+                <Text className="text-neutral-800 font-semibold mb-2">Description</Text>
+                <TextInput
+                  value={newDescription}
+                  onChangeText={setNewDescription}
+                  multiline
+                  numberOfLines={3}
+                  className="border border-neutral-300 rounded-xl p-4 text-neutral-700 bg-neutral-50"
+                  placeholder="Enter description"
+                  textAlignVertical="top"
+                />
+              </View>
+
+              <View className="mb-4">
+                <Text className="text-neutral-800 font-semibold mb-2">Due Date *</Text>
+                <TextInput
+                  value={newDueDate}
+                  onChangeText={setNewDueDate}
+                  className="border border-neutral-300 rounded-xl p-4 text-neutral-700 bg-neutral-50"
+                  placeholder="YYYY-MM-DD"
+                />
+              </View>
+
+              <View className="mb-4">
+                <Text className="text-neutral-800 font-semibold mb-2">Priority</Text>
+                <TouchableOpacity
+                  onPress={() => setShowPriorityMenu(!showPriorityMenu)}
+                  className="border border-neutral-300 rounded-xl p-4 bg-neutral-50 flex-row items-center justify-between"
+                >
+                  <Text className="text-neutral-700 capitalize">{newPriority} Priority</Text>
+                  <ChevronDown size={20} color="#737373" strokeWidth={2} />
+                </TouchableOpacity>
+                {showPriorityMenu && (
+                  <View className="mt-2 bg-white border border-neutral-200 rounded-xl overflow-hidden">
+                    {priorities.map((priority) => (
+                      <TouchableOpacity
+                        key={priority.value}
+                        onPress={() => {
+                          setNewPriority(priority.value);
+                          setShowPriorityMenu(false);
+                        }}
+                        className="p-4 border-b border-neutral-100 last:border-b-0"
+                      >
+                        <Text className="text-neutral-700">{priority.label}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
+              </View>
+
+              <View className="mb-6">
+                <Text className="text-neutral-800 font-semibold mb-2">Category</Text>
+                <TouchableOpacity
+                  onPress={() => setShowCategoryMenu(!showCategoryMenu)}
+                  className="border border-neutral-300 rounded-xl p-4 bg-neutral-50 flex-row items-center justify-between"
+                >
+                  <Text className="text-neutral-700 capitalize">{newCategory}</Text>
+                  <ChevronDown size={20} color="#737373" strokeWidth={2} />
+                </TouchableOpacity>
+                {showCategoryMenu && (
+                  <View className="mt-2 bg-white border border-neutral-200 rounded-xl overflow-hidden">
+                    {categories.map((category) => (
+                      <TouchableOpacity
+                        key={category.value}
+                        onPress={() => {
+                          setNewCategory(category.value);
+                          setShowCategoryMenu(false);
+                        }}
+                        className="p-4 border-b border-neutral-100 last:border-b-0"
+                      >
+                        <Text className="text-neutral-700">{category.label}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
+              </View>
+            </ScrollView>
+
+            <View className="flex-row space-x-3">
+              <TouchableOpacity
+                onPress={() => setShowAddModal(false)}
+                className="flex-1 bg-neutral-100 py-4 rounded-xl items-center"
+              >
+                <Text className="text-neutral-700 font-semibold">{translations.cancel}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleAddReminder}
+                className="flex-1 bg-secondary-500 py-4 rounded-xl items-center"
+              >
+                <Text className="text-white font-semibold">Add Reminder</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  header: {
-    padding: 20,
-    backgroundColor: theme.colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.outline,
-  },
-  title: {
-    color: theme.colors.onSurface,
-    marginBottom: 8,
-  },
-  offlineText: {
-    color: theme.colors.warning,
-    fontSize: 12,
-  },
-  remindersList: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  reminderCard: {
-    marginBottom: 16,
-    backgroundColor: theme.colors.surface,
-  },
-  reminderHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  reminderTitle: {
-    fontSize: 16,
-    flex: 1,
-  },
-  priorityChip: {
-    marginLeft: 8,
-    borderRadius: 14,
-    height: 32,
-    paddingVertical: 0,
-  },
-  reminderDescription: {
-    color: theme.colors.onSurfaceVariant,
-    marginBottom: 12,
-  },
-  reminderMeta: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  reminderDate: {
-    color: theme.colors.onSurfaceVariant,
-    fontSize: 12,
-  },
-  reminderCategory: {
-    color: theme.colors.primary,
-    fontSize: 12,
-    textTransform: 'capitalize',
-  },
-  reminderActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  actionButton: {
-    flex: 1,
-    marginHorizontal: 4,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: theme.colors.primary,
-  },
-  modalContainer: {
-    backgroundColor: (theme.colors as any).modalOverlay, // type workaround for modalOverlay
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  modalCard: {
-    backgroundColor: theme.colors.surface,
-  },
-  modalTitle: {
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    marginBottom: 16,
-  },
-  menuButton: {
-    marginBottom: 16,
-    justifyContent: 'flex-start',
-  },
-  modalActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  modalButton: {
-    flex: 1,
-    marginHorizontal: 8,
-  },
-});

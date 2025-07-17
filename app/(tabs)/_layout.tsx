@@ -1,114 +1,86 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { PaperProvider } from 'react-native-paper';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Tabs } from 'expo-router';
+import { View } from 'react-native';
+import { Home, BookOpen, Bell, Users, MoreHorizontal } from 'lucide-react-native';
 import { AppContextProvider } from '@/context/AppContext';
-import { DefaultTheme as PaperDefaultTheme } from 'react-native-paper';
-
-const customTheme = {
-  ...PaperDefaultTheme,
-  colors: {
-    ...PaperDefaultTheme.colors,
-    primary: theme.colors.primary,
-    accent: theme.colors.accent,
-    background: theme.colors.background,
-    surface: theme.colors.surface,
-    // Do NOT add 'text' or other non-MD2 keys here!
-  },
-};
-
-import HomeScreen from './index';
-import ResourcesScreen from './resources';
-import RemindersScreen from './reminders';
-import ProgressScreen from './progress';
-import ClubsScreen from '../more-screens/clubs';
-import MoreScreen from './more';
-import LostFoundScreen from '../more-screens/lost-found';
-import ComplaintsScreen from '../more-screens/complaints';
-import JobsScreen from '../more-screens/jobs';
-
-const Tab = createMaterialBottomTabNavigator();
 
 export default function TabLayout() {
   return (
     <AppContextProvider>
-      <PaperProvider theme={customTheme}>
-        <Tab.Navigator
-          shifting={false} // disable shifting style
-          activeColor={theme.colors.onPrimary}
-          inactiveColor={theme.colors.onSurfaceVariant}
-          barStyle={{
-            backgroundColor: theme.colors.primary,
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: '#ffffff',
+            borderTopWidth: 1,
+            borderTopColor: '#e5e5e5',
             height: 90,
-            paddingTop: 0,
-            paddingBottom: 0,
+            paddingBottom: 20,
+            paddingTop: 10,
+            elevation: 8,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: -2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+          },
+          tabBarActiveTintColor: '#0ea5e9',
+          tabBarInactiveTintColor: '#737373',
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '600',
+            marginTop: 4,
+          },
+          tabBarIconStyle: {
+            marginBottom: 2,
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Home size={size} color={color} strokeWidth={2} />
+            ),
           }}
-          screenOptions={{
-            tabBarLabelStyle: { fontSize: 15, fontWeight: 'bold', marginBottom: 2 },
-            tabBarIconStyle: { marginTop: 4 },
+        />
+        <Tabs.Screen
+          name="resources"
+          options={{
+            title: 'Resources',
+            tabBarIcon: ({ color, size }) => (
+              <BookOpen size={size} color={color} strokeWidth={2} />
+            ),
           }}
-        >
-          <Tab.Screen
-            name="index"
-            component={HomeScreen}
-            options={{
-              title: 'Home',
-              tabBarIcon: ({ color }: { color: string }) => (
-                <MaterialIcons name="home" size={30} color={color} />
-              ),
-              tabBarColor: theme.colors.primary,
-              tabBarActiveBackgroundColor: 'transparent',
-            }}
-          />
-          <Tab.Screen
-            name="resources"
-            component={ResourcesScreen}
-            options={{
-              title: 'Resources',
-              tabBarIcon: ({ color }: { color: string }) => (
-                <MaterialIcons name="library-books" size={30} color={color} />
-              ),
-              tabBarColor: theme.colors.primary,
-              tabBarActiveBackgroundColor: 'transparent',
-            }}
-          />
-          <Tab.Screen
-            name="reminders"
-            component={RemindersScreen}
-            options={{
-              title: 'Reminders',
-              tabBarIcon: ({ color }: { color: string }) => (
-                <MaterialIcons name="alarm" size={30} color={color} />
-              ),
-              tabBarColor: theme.colors.primary,
-              tabBarActiveBackgroundColor: 'transparent',
-            }}
-          />
-          <Tab.Screen
-            name="clubs"
-            component={ClubsScreen}
-            options={{
-              title: 'Clubs',
-              tabBarIcon: ({ color }: { color: string }) => (
-                <MaterialIcons name="group" size={26} color={color} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="more"
-            component={MoreScreen}
-            options={{
-              title: 'More',
-              tabBarIcon: ({ color }: { color: string }) => (
-                <MaterialIcons name="more-horiz" size={30} color={color} />
-              ),
-              tabBarColor: theme.colors.primary,
-              tabBarActiveBackgroundColor: 'transparent',
-            }}
-          />
-        </Tab.Navigator>
-      </PaperProvider>
+        />
+        <Tabs.Screen
+          name="reminders"
+          options={{
+            title: 'Reminders',
+            tabBarIcon: ({ color, size }) => (
+              <Bell size={size} color={color} strokeWidth={2} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="progress"
+          options={{
+            title: 'Progress',
+            tabBarIcon: ({ color, size }) => (
+              <Users size={size} color={color} strokeWidth={2} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="more"
+          options={{
+            title: 'More',
+            tabBarIcon: ({ color, size }) => (
+              <MoreHorizontal size={size} color={color} strokeWidth={2} />
+            ),
+          }}
+        />
+      </Tabs>
     </AppContextProvider>
   );
 }
