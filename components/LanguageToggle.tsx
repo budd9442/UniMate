@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Menu, Paragraph } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
-import { theme } from '@/theme/theme';
 
 export const LanguageToggle: React.FC = () => {
   const { language, setLanguage, translations } = useAppContext();

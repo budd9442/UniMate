@@ -3,7 +3,6 @@ import { useLocalSearchParams } from 'expo-router';
 import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Title, Paragraph, Button, Searchbar, Chip, Avatar, Surface } from 'react-native-paper';
 import { mockCommunities } from '@/services/mockData';
-import { theme } from '@/theme/theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function CommunityResourcesScreen() {
@@ -104,11 +103,11 @@ export default function CommunityResourcesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   header: {
     padding: 20,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: '#3b82f6',
     marginBottom: 16,
   },
   headerRow: {
@@ -120,11 +119,11 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   title: {
-    color: theme.colors.onPrimary,
+    color: '#ffffff',
     marginBottom: 4,
   },
   subtitle: {
-    color: theme.colors.onPrimary,
+    color: '#ffffff',
     opacity: 0.9,
   },
   communityMeta: {
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
   },
   memberCount: {
     fontSize: 12,
-    color: theme.colors.onPrimary,
+    color: '#ffffff',
     marginLeft: 4,
   },
   section: {
@@ -143,21 +142,21 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: theme.colors.onSurface,
+    color: '#1e293b',
     marginBottom: 8,
   },
   placeholder: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     fontStyle: 'italic',
     marginBottom: 8,
   },
   searchbar: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     marginBottom: 12,
   },
   resourceCard: {
     marginBottom: 12,
-    backgroundColor: theme.colors.surfaceVariant,
+    backgroundColor: '#f1f5f9',
   },
   resourceHeader: {
     flexDirection: 'row',
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
   },
   resourceDescription: {
     fontSize: 12,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
   },
   resourceTags: {
     flexDirection: 'row',
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
   },
   resourceMetaText: {
     fontSize: 11,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
   },
   resourceActions: {
     flexDirection: 'row',

@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { Card, Title, Paragraph, Switch, Divider, List, Surface } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
 import { LanguageToggle } from '@/components/LanguageToggle';
-import { theme } from '@/theme/theme';
 
 export default function SettingsScreen() {
   const { isOffline, setIsOffline } = useAppContext();
@@ -59,24 +58,24 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   scrollView: {
     paddingBottom: 32,
   },
   header: {
     padding: 24,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: '#3b82f6',
     marginBottom: 16,
   },
   headerTitle: {
-    color: theme.colors.surface,
+    color: '#ffffff',
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   headerSubtitle: {
-    color: theme.colors.surface,
+    color: '#ffffff',
     textAlign: 'center',
     marginTop: 8,
     opacity: 0.9,
@@ -84,13 +83,13 @@ const styles = StyleSheet.create({
   sectionCard: {
     marginHorizontal: 16,
     marginBottom: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     elevation: 2,
     borderRadius: 12,
   },
   sectionTitle: {
     marginBottom: 16,
-    color: theme.colors.onSurface,
+    color: '#1e293b',
     fontSize: 18,
     fontWeight: '600',
   },

@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView, Alert, Image } from 'react-native';
 import { Card, Title, Paragraph, Button, Searchbar, Chip, FAB, Portal, Modal, TextInput, RadioButton } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
 import { mockLostFound } from '@/services/mockData';
-import { theme } from '@/theme/theme';
 
 export default function LostFoundScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -246,27 +245,27 @@ export default function LostFoundScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   header: {
     padding: 20,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.outline,
+    borderBottomColor: '#cbd5e1',
   },
   title: {
-    color: theme.colors.onSurface,
+    color: '#1e293b',
     marginBottom: 8,
   },
   offlineText: {
-    color: theme.colors.warning,
+    color: '#f59e0b',
     fontSize: 12,
   },
   searchContainer: {
     padding: 16,
   },
   searchbar: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
   },
   categoryScroll: {
     paddingHorizontal: 16,
@@ -284,7 +283,7 @@ const styles = StyleSheet.create({
   },
   itemCard: {
     marginBottom: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
   },
   itemImage: {
     width: '100%',
@@ -309,7 +308,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   itemDescription: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginBottom: 12,
     lineHeight: 20,
   },
@@ -319,7 +318,7 @@ const styles = StyleSheet.create({
   detailItem: {
     fontSize: 14,
     marginBottom: 4,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
   },
   itemActions: {
     flexDirection: 'row',
@@ -334,16 +333,16 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: '#3b82f6',
   },
   modalContainer: {
-    backgroundColor: (theme.colors as any).modalOverlay, // type workaround for modalOverlay
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     flex: 1,
     justifyContent: 'center',
     padding: 20,
   },
   modalCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
   },
   modalTitle: {
     textAlign: 'center',

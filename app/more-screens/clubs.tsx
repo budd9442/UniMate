@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView, Alert, Image } from 'react-native';
 import { Card, Title, Paragraph, Button, Searchbar, Chip, Surface } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
 import { mockClubs } from '@/services/mockData';
-import { theme } from '@/theme/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -133,7 +132,7 @@ export default function ClubsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   gradientHeader: {
     paddingTop: 48,
@@ -150,12 +149,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    color: theme.colors.onPrimary,
+    color: '#ffffff',
     fontSize: 24,
     fontWeight: 'bold',
   },
   offlineText: {
-    color: theme.colors.warning,
+    color: '#f59e0b',
     fontSize: 12,
     marginTop: 4,
   },
@@ -164,13 +163,13 @@ const styles = StyleSheet.create({
     marginTop: -28,
     marginBottom: 8,
     borderRadius: 18,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     padding: 12,
     elevation: 4,
     zIndex: 2,
   },
   searchbar: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     marginBottom: 8,
     borderRadius: 12,
   },
@@ -189,10 +188,10 @@ const styles = StyleSheet.create({
   },
   clubCard: {
     marginBottom: 20,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     borderRadius: 18,
     elevation: 4,
-    shadowColor: theme.colors.outline, // was '#000'
+    shadowColor: '#cbd5e1',
     shadowOpacity: 0.08,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
@@ -209,16 +208,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 2,
     marginTop: 12,
-    color: theme.colors.primary,
+    color: '#3b82f6',
   },
   clubCategory: {
-    color: theme.colors.secondary,
+    color: '#8b5cf6',
     fontSize: 14,
     marginBottom: 8,
     fontWeight: '600',
   },
   clubDescription: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginBottom: 12,
     lineHeight: 20,
   },
@@ -235,7 +234,7 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: 13,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginLeft: 4,
   },
   clubActions: {

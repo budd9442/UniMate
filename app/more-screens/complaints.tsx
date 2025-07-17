@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Title, Paragraph, Button, FAB, Portal, Modal, TextInput, RadioButton, Checkbox, Surface } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
-import { theme } from '@/theme/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -210,7 +209,7 @@ export default function ComplaintsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   gradientHeader: {
     paddingTop: 48,
@@ -227,12 +226,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    color: theme.colors.onPrimary,
+    color: '#ffffff',
     fontSize: 24,
     fontWeight: 'bold',
   },
   offlineText: {
-    color: theme.colors.warning,
+    color: '#f59e0b',
     fontSize: 12,
     marginTop: 4,
   },
@@ -244,16 +243,16 @@ const styles = StyleSheet.create({
   infoCard: {
     marginBottom: 18,
     borderRadius: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     elevation: 3,
   },
   infoTitle: {
-    color: theme.colors.primary,
+    color: '#3b82f6',
     fontWeight: 'bold',
     marginBottom: 4,
   },
   infoText: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginBottom: 8,
   },
   infoPoints: {
@@ -267,17 +266,17 @@ const styles = StyleSheet.create({
   },
   infoPoint: {
     fontSize: 13,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginLeft: 6,
   },
   emergencyCard: {
     marginBottom: 18,
     borderRadius: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     elevation: 2,
   },
   emergencyTitle: {
-    color: theme.colors.error,
+    color: '#ef4444',
     fontWeight: 'bold',
     marginBottom: 4,
   },
@@ -289,26 +288,26 @@ const styles = StyleSheet.create({
   },
   contactTitle: {
     fontWeight: 'bold',
-    color: theme.colors.onSurface,
+    color: '#1e293b',
     marginRight: 8,
   },
   contactNumber: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     fontSize: 13,
   },
   tipsCard: {
     marginBottom: 18,
     borderRadius: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     elevation: 2,
   },
   tipsTitle: {
-    color: theme.colors.secondary,
+    color: '#8b5cf6',
     fontWeight: 'bold',
     marginBottom: 4,
   },
   tipText: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginBottom: 2,
     fontSize: 13,
   },
@@ -316,24 +315,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 24,
     bottom: 32,
-    backgroundColor: theme.colors.error,
+    backgroundColor: '#ef4444',
     borderRadius: 32,
     elevation: 4,
   },
   modalContainer: {
     margin: 24,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     borderRadius: 18,
     padding: 0,
     elevation: 4,
   },
   modalCard: {
     borderRadius: 18,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     elevation: 3,
   },
   modalTitle: {
-    color: theme.colors.primary,
+    color: '#3b82f6',
     fontWeight: 'bold',
     marginBottom: 8,
     fontSize: 20,
@@ -344,7 +343,7 @@ const styles = StyleSheet.create({
   selectorTitle: {
     fontWeight: 'bold',
     marginBottom: 4,
-    color: theme.colors.onSurface,
+    color: '#1e293b',
   },
   radioItem: {
     flexDirection: 'row',
@@ -354,7 +353,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 12,
-    backgroundColor: theme.colors.surfaceVariant,
+    backgroundColor: '#f1f5f9',
     borderRadius: 8,
   },
   anonymousSection: {
@@ -362,7 +361,7 @@ const styles = StyleSheet.create({
   },
   anonymousText: {
     fontSize: 12,
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginLeft: 8,
   },
   checkbox: {

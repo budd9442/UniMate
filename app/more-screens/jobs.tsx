@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Title, Paragraph, Button, Searchbar, Chip } from 'react-native-paper';
 import { useAppContext } from '@/context/AppContext';
 import { mockJobs } from '@/services/mockData';
-import { theme } from '@/theme/theme';
 
 export default function JobsScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -137,27 +136,27 @@ export default function JobsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#f8fafc',
   },
   header: {
     padding: 20,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.outline,
+    borderBottomColor: '#cbd5e1',
   },
   title: {
-    color: theme.colors.onSurface,
+    color: '#1e293b',
     marginBottom: 8,
   },
   offlineText: {
-    color: theme.colors.warning,
+    color: '#f59e0b',
     fontSize: 12,
   },
   searchContainer: {
     padding: 16,
   },
   searchbar: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
   },
   typeScroll: {
     paddingHorizontal: 16,
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
   },
   jobCard: {
     marginBottom: 16,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#ffffff',
   },
   jobHeader: {
     flexDirection: 'row',
@@ -189,21 +188,21 @@ const styles = StyleSheet.create({
   },
   company: {
     fontSize: 16,
-    color: theme.colors.primary,
+    color: '#3b82f6',
     fontWeight: 'bold',
     marginBottom: 4,
   },
   location: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     marginBottom: 4,
   },
   salary: {
-    color: theme.colors.success,
+    color: '#22c55e',
     fontWeight: 'bold',
     marginBottom: 12,
   },
   description: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     lineHeight: 20,
     marginBottom: 16,
   },
@@ -215,19 +214,19 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   requirementsText: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     lineHeight: 18,
   },
   jobMeta: {
     marginBottom: 16,
   },
   contact: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     fontSize: 12,
     marginBottom: 4,
   },
   posted: {
-    color: theme.colors.onSurfaceVariant,
+    color: '#64748b',
     fontSize: 12,
   },
   jobActions: {
