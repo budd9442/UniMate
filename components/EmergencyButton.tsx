@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
 import { useAppContext } from '@/context/AppContext';
-import { Phone, X, AlertTriangle, Shield, Heart, HelpCircle } from 'lucide-react-native';
+import { Phone, X, TriangleAlert as AlertTriangle, Shield, Heart, CircleHelp as HelpCircle } from 'lucide-react-native';
 
 export const EmergencyButton: React.FC = () => {
   const [visible, setVisible] = useState(false);

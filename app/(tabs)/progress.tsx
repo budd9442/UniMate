@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
 import { useAppContext } from '@/context/AppContext';
 import { mockGrades } from '@/services/mockData';
-import { 
-  TrendingUp, 
-  Plus, 
-  Award, 
-  BookOpen, 
-  Target,
-  X,
-  ChevronDown,
-  BarChart3
-} from 'lucide-react-native';
+import { TrendingUp, Plus, Award, BookOpen, Target, X, ChevronDown, ChartBar as BarChart3 } from 'lucide-react-native';
 
 export default function ProgressScreen() {
   const [showAddModal, setShowAddModal] = useState(false);

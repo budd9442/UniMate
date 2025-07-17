@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { View } from 'react-native';
-import { Home, BookOpen, Bell, Users, MoreHorizontal } from 'lucide-react-native';
+import { Chrome as Home, BookOpen, Bell, Users, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
 import { AppContextProvider } from '@/context/AppContext';
 
 export default function TabLayout() {

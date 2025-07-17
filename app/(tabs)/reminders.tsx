@@ -2,17 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
 import { useAppContext } from '@/context/AppContext';
 import { mockReminders } from '@/services/mockData';
-import { 
-  Bell, 
-  Plus, 
-  Calendar, 
-  Clock, 
-  AlertCircle, 
-  CheckCircle2, 
-  Edit3,
-  X,
-  ChevronDown
-} from 'lucide-react-native';
+import { Bell, Plus, Calendar, Clock, CircleAlert as AlertCircle, CircleCheck as CheckCircle2, CreditCard as Edit3, X, ChevronDown } from 'lucide-react-native';
 
 export default function RemindersScreen() {
   const [showAddModal, setShowAddModal] = useState(false);

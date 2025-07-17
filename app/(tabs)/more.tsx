@@ -1,17 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { 
-  Users, 
-  AlertCircle, 
-  Briefcase, 
-  Search, 
-  Settings, 
-  ChevronRight,
-  Shield,
-  MapPin,
-  HelpCircle
-} from 'lucide-react-native';
+import { Users, CircleAlert as AlertCircle, Briefcase, Search, Settings, ChevronRight, Shield, MapPin, CircleHelp as HelpCircle } from 'lucide-react-native';
 
 export default function MoreScreen() {
   const router = useRouter();
